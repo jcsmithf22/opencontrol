@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-(cd packages/frontend && bun run build)
-(cd packages/opencontrol && bun run build)
-bun changeset publish

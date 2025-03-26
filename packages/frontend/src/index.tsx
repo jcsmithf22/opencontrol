@@ -6,8 +6,10 @@ import "./index.css"
 import { App } from "./app"
 import { createSignal, onMount, Show } from "solid-js"
 import { client, password, setPassword } from "./client"
+import { QueryClient, QueryClientProvider } from "@tanstack/solid-query"
 
 const root = document.getElementById("root")
+const queryClient = new QueryClient()
 
 if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   throw new Error(
@@ -46,7 +48,9 @@ render(() => {
   })
   return (
     <Show when={ready()}>
-      <App />
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
     </Show>
   )
 }, root!)

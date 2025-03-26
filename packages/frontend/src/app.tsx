@@ -1,10 +1,11 @@
 import { LanguageModelV1Prompt } from "ai"
-import { createEffect, For, onCleanup } from "solid-js"
+import { createEffect, ErrorBoundary, For, onCleanup, Suspense } from "solid-js"
 import { createStore } from "solid-js/store"
 import SYSTEM_PROMPT from "./system.txt?raw"
 import { hc } from "hono/client"
-import { type App } from "opencontrol"
+import { type App } from "../../opencontrol/src"
 import { client } from "./client"
+import { createQuery } from "@tanstack/solid-query"
 
 const providerMetadata = {
   anthropic: {
@@ -43,6 +44,15 @@ const getInitialPrompt = (): LanguageModelV1Prompt => [
 export function App() {
   let root: HTMLDivElement | undefined
   let textarea: HTMLTextAreaElement | undefined
+
+  const cartQuery = createQuery(() => ({
+    queryKey: ["cart"],
+    queryFn: async () => {
+      const response = await client.cart.$get()
+      return response.json()
+    },
+    throwOnError: true,
+  }))
 
   const toolDefs = client.mcp
     .$post({
@@ -212,11 +222,59 @@ export function App() {
       }
     }
     setStore("isProcessing", false)
+    cartQuery.refetch()
     textarea?.focus()
   }
 
   return (
     <div data-component="root" ref={root}>
+      <div data-component="shopping-cart">
+        <h3>Shopping Cart</h3>
+        {/* An error while fetching will be caught by the ErrorBoundary */}
+        <ErrorBoundary fallback={<div data-slot="cart-error">Something went wrong!</div>}>
+          {/* Suspense will trigger a loading state while the data is being fetched */}
+          <Suspense fallback={<div data-slot="cart-loading">Loading cart...</div>}>
+            {cartQuery.data && (
+              <div data-slot="cart-details">
+                <div data-slot="cart-items">
+                  <h4>Items ({cartQuery.data.items.length})</h4>
+                  <For each={cartQuery.data.items}>
+                    {(item) => (
+                      <div data-slot="cart-item">
+                        <div data-slot="item-name">{item.product?.name}</div>
+                        <div data-slot="item-quantity">Qty: {item.quantity}</div>
+                        <div data-slot="item-price">
+                          ${(item.subtotal / 100).toFixed(2)}
+                        </div>
+                      </div>
+                    )}
+                  </For>
+                </div>
+                <div data-slot="cart-summary">
+                  <div data-slot="summary-row">
+                    <span>Subtotal:</span>
+                    <span>
+                      ${(cartQuery.data.amount.subtotal / 100).toFixed(2)}
+                    </span>
+                  </div>
+                  <div data-slot="summary-row">
+                    <span>Shipping:</span>
+                    <span>
+                      ${((cartQuery.data.amount.shipping ?? 0) / 100).toFixed(2)}
+                    </span>
+                  </div>
+                  <div data-slot="summary-row" data-total="true">
+                    <span>Total:</span>
+                    <span>
+                      ${((cartQuery.data.amount.total ?? 0) / 100).toFixed(2)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </Suspense>
+        </ErrorBoundary>
+      </div>
       <div data-component="messages">
         <For each={store.prompt}>
           {(item) => (
