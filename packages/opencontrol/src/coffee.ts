@@ -24,12 +24,8 @@ export async function getCart() {
     }
   })
 
-  const updatedCart = {
+  return {
     ...cart,
     items: enrichedItems,
   }
-
-  console.log(updatedCart)
-
-  return updatedCart
 }
