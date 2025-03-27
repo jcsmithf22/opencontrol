@@ -36,20 +36,23 @@ export async function getOrders() {
     client.order.list(),
   ])
 
-  // I was wrong - each order has the items array, not the order itself AI!
-  const enrichedItems = orders.items.map((item) => {
-    const product = products.find((product) =>
-      product.variants.some((variant) => variant.id === item.productVariantID),
-    )
+  const enrichedOrders = orders.map((order) => {
+    const enrichedItems = order.items.map((item) => {
+      const product = products.find((product) =>
+        product.variants.some((variant) => variant.id === item.productVariantID),
+      )
+
+      return {
+        ...item,
+        product,
+      }
+    })
 
     return {
-      ...item,
-      product,
+      ...order,
+      items: enrichedItems,
     }
   })
 
-  return {
-    ...orders,
-    items: enrichedItems,
-  }
+  return enrichedOrders
 }
