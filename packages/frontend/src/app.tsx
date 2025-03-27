@@ -237,8 +237,8 @@ export function App() {
 
   return (
     <div data-component="root" ref={root}>
-      // wrap with data-slot="sidebar" AI!
-      <div data-component="shopping-cart">
+      <div data-slot="sidebar">
+        <div data-component="shopping-cart">
         <h3>Shopping Cart</h3>
         {/* An error while fetching will be caught by the ErrorBoundary */}
         <ErrorBoundary
@@ -291,6 +291,7 @@ export function App() {
             )}
           </Suspense>
         </ErrorBoundary>
+      </div>
       </div>
       <div data-component="messages">
         <For each={store.prompt}>
