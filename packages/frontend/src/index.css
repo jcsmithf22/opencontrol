@@ -211,8 +211,6 @@ body {
   margin-top: 1rem;
   box-shadow: 0 4px 12px oklch(0 0 0 / 0.2);
   z-index: 10;
-  max-height: 300px;
-  overflow-y: auto;
   color: white;
   font-size: 14px;
 
@@ -287,6 +285,15 @@ body {
   top: 1rem;
   right: 1rem;
   width: 300px;
+  height: calc(100vh - 2rem);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  // hide scrollbars AI!
+
+  & > * {
+    position: sticky;
+    top: 0;
+  }
 }
 
 [data-component="shopping-cart"] {
