@@ -300,7 +300,9 @@ body {
     box-shadow: 0 -6px 16px var(--color-alpha100);
   }
 
-  // add a bttom margin of 5rem to the last child AI!
+  & > *:last-child {
+    margin-bottom: 5rem;
+  }
 }
 
 [data-component="shopping-cart"] {
