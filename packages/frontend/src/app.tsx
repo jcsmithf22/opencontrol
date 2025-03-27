@@ -54,6 +54,8 @@ export function App() {
     throwOnError: true,
   }))
 
+  // add a query for orders AI!
+
   const toolDefs = client.mcp
     .$post({
       json: {
@@ -231,9 +233,13 @@ export function App() {
       <div data-component="shopping-cart">
         <h3>Shopping Cart</h3>
         {/* An error while fetching will be caught by the ErrorBoundary */}
-        <ErrorBoundary fallback={<div data-slot="cart-error">Something went wrong!</div>}>
+        <ErrorBoundary
+          fallback={<div data-slot="cart-error">Something went wrong!</div>}
+        >
           {/* Suspense will trigger a loading state while the data is being fetched */}
-          <Suspense fallback={<div data-slot="cart-loading">Loading cart...</div>}>
+          <Suspense
+            fallback={<div data-slot="cart-loading">Loading cart...</div>}
+          >
             {cartQuery.data && (
               <div data-slot="cart-details">
                 <div data-slot="cart-items">
@@ -242,7 +248,9 @@ export function App() {
                     {(item) => (
                       <div data-slot="cart-item">
                         <div data-slot="item-name">{item.product?.name}</div>
-                        <div data-slot="item-quantity">Qty: {item.quantity}</div>
+                        <div data-slot="item-quantity">
+                          Qty: {item.quantity}
+                        </div>
                         <div data-slot="item-price">
                           ${(item.subtotal / 100).toFixed(2)}
                         </div>
@@ -260,7 +268,8 @@ export function App() {
                   <div data-slot="summary-row">
                     <span>Shipping:</span>
                     <span>
-                      ${((cartQuery.data.amount.shipping ?? 0) / 100).toFixed(2)}
+                      $
+                      {((cartQuery.data.amount.shipping ?? 0) / 100).toFixed(2)}
                     </span>
                   </div>
                   <div data-slot="summary-row" data-total="true">
