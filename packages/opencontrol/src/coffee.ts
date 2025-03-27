@@ -31,6 +31,24 @@ export async function getCart() {
 }
 
 export async function getOrders() {
-  // replicate the functionality of getCart(), order.list() also returns an object with an items array AI!
-  const { data } = await client.order.list()
+  const [{ data: products }, { data: orders }] = await Promise.all([
+    client.product.list(),
+    client.order.list(),
+  ])
+
+  const enrichedItems = orders.items.map((item) => {
+    const product = products.find((product) =>
+      product.variants.some((variant) => variant.id === item.productVariantID),
+    )
+
+    return {
+      ...item,
+      product,
+    }
+  })
+
+  return {
+    ...orders,
+    items: enrichedItems,
+  }
 }
