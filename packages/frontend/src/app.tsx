@@ -309,12 +309,23 @@ export function App() {
                       <div data-slot="order">
                         <div data-slot="order-info">
                           <div data-slot="order-id">Order #{order.id}</div>
-                          <div data-slot="order-date">
-                            {new Date(order.createdAt).toLocaleDateString()}
-                          </div>
                         </div>
                         <div data-slot="order-total">
-                          ${((order.amount.total ?? 0) / 100).toFixed(2)}
+                          $
+                          {(
+                            (order.amount.subtotal + order.amount.shipping) /
+                            100
+                          ).toFixed(2)}
+                        </div>
+                        // style AI!
+                        <div>
+                          {order.items.map((item) => (
+                            <div>
+                              <p>{item.product?.name}</p>
+                              <p>{item.quantity}</p>
+                              <p>{(item.amount / 100).toFixed(2)}</p>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     )}
