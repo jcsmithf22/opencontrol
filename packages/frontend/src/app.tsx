@@ -54,7 +54,14 @@ export function App() {
     throwOnError: true,
   }))
 
-  // add a query for orders AI!
+  const ordersQuery = createQuery(() => ({
+    queryKey: ["orders"],
+    queryFn: async () => {
+      const response = await client.order.$get()
+      return response.json()
+    },
+    throwOnError: true,
+  }))
 
   const toolDefs = client.mcp
     .$post({
