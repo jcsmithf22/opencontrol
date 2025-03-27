@@ -295,7 +295,7 @@ body {
 
   [data-slot="order-item"] {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
     padding: 6px;
     margin: 2px 0;
@@ -314,18 +314,21 @@ body {
     font-weight: 500;
   }
 
+  [data-slot="item-details"] {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    min-width: 60px;
+  }
+
   [data-slot="item-quantity"] {
-    min-width: 50px;
     color: var(--color-bravo600);
     font-size: 12px;
-    text-align: right;
   }
 
   [data-slot="item-price"] {
-    min-width: 60px;
     color: var(--color-bravo800);
     font-size: 12px;
-    text-align: right;
   }
 
   [data-slot="order-error"],

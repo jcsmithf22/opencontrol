@@ -316,11 +316,13 @@ export function App() {
                               <div data-slot="item-name">
                                 {item.product?.name}
                               </div>
-                              <div data-slot="item-quantity">
-                                Qty: {item.quantity}
-                              </div>
-                              <div data-slot="item-price">
-                                ${(item.amount / 100).toFixed(2)}
+                              <div data-slot="item-details">
+                                <div data-slot="item-quantity">
+                                  Qty: {item.quantity}
+                                </div>
+                                <div data-slot="item-price">
+                                  ${(item.amount / 100).toFixed(2)}
+                                </div>
                               </div>
                             </div>
                           ))}
