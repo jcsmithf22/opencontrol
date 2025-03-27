@@ -267,6 +267,40 @@ body {
     align-self: center;
   }
 
+  [data-slot="order-items"] {
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--color-bravo200);
+  }
+
+  [data-slot="order-item"] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 13px;
+  }
+
+  [data-slot="item-name"] {
+    flex-grow: 1;
+    margin-right: 10px;
+    color: var(--color-bravo700);
+  }
+
+  [data-slot="item-quantity"] {
+    min-width: 50px;
+    text-align: right;
+    color: var(--color-bravo600);
+    margin-right: 10px;
+  }
+
+  [data-slot="item-price"] {
+    min-width: 60px;
+    text-align: right;
+    color: var(--color-bravo800);
+  }
+
   [data-slot="order-error"],
   [data-slot="order-loading"] {
     color: var(--color-bravo500);
