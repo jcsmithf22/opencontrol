@@ -29,3 +29,8 @@ export async function getCart() {
     items: enrichedItems,
   }
 }
+
+export async function getOrders() {
+  // replicate the functionality of getCart(), order.list() also returns an object with an items array AI!
+  const { data } = await client.order.list()
+}
