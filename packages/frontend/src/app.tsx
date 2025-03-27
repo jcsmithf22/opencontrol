@@ -307,9 +307,11 @@ export function App() {
                   <For each={ordersQuery.data}>
                     {(order) => (
                       <div data-slot="order">
-                        <div data-slot="order-id">Order #{order.id}</div>
-                        <div data-slot="order-date">
-                          {new Date(order.createdAt).toLocaleDateString()}
+                        <div data-slot="order-info">
+                          <div data-slot="order-id">Order #{order.id}</div>
+                          <div data-slot="order-date">
+                            {new Date(order.createdAt).toLocaleDateString()}
+                          </div>
                         </div>
                         <div data-slot="order-total">
                           ${((order.amount.total ?? 0) / 100).toFixed(2)}
