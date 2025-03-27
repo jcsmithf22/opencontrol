@@ -51,6 +51,7 @@ export function create(input: OpenControlOptions) {
         const result = await getCart()
         return c.json(result)
       })
+      // add get for orders (use /order) AI!
       .use(
         bearerAuth({
           token,
