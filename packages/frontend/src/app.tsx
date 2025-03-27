@@ -54,6 +54,274 @@ export function App() {
     throwOnError: true,
   }))
 
+  /* THIS IS THE SCHEMA FOR THE BELOW FUNCTION AI
+   * {
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique object identifier.\nThe format and length of IDs may change over time.",
+            "example": "ord_XXXXXXXXXXXXXXXXXXXXXXXXX"
+          },
+          "index": {
+            "type": "integer",
+            "description": "Zero-based index of the order for this user only.",
+            "example": 0
+          },
+          "shipping": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The recipient's name.",
+                "example": "John Doe"
+              },
+              "street1": {
+                "type": "string",
+                "description": "Street of the address.",
+                "example": "123 Main St"
+              },
+              "street2": {
+                "type": "string",
+                "description": "Apartment, suite, etc. of the address.",
+                "example": "Apt 1"
+              },
+              "city": {
+                "type": "string",
+                "description": "City of the address.",
+                "example": "Anytown"
+              },
+              "province": {
+                "type": "string",
+                "description": "Province or state of the address.",
+                "example": "CA"
+              },
+              "country": {
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 2,
+                "description": "ISO 3166-1 alpha-2 country code of the address.",
+                "example": "US"
+              },
+              "zip": {
+                "type": "string",
+                "description": "Zip code of the address.",
+                "example": "12345"
+              },
+              "phone": {
+                "type": "string",
+                "description": "Phone number of the recipient.",
+                "example": "5555555555"
+              }
+            },
+            "required": [
+              "name",
+              "street1",
+              "city",
+              "country",
+              "zip"
+            ],
+            "description": "Shipping address of the order.",
+            "example": {
+              "name": "John Doe",
+              "street1": "123 Main St",
+              "street2": "Apt 1",
+              "city": "Anytown",
+              "province": "CA",
+              "zip": "12345",
+              "country": "US",
+              "phone": "5555555555"
+            }
+          },
+          "amount": {
+            "type": "object",
+            "properties": {
+              "shipping": {
+                "type": "integer",
+                "description": "Shipping amount of the order, in cents (USD).",
+                "example": 800
+              },
+              "subtotal": {
+                "type": "integer",
+                "description": "Subtotal amount of the order, in cents (USD).",
+                "example": 4400
+              }
+            },
+            "required": [
+              "shipping",
+              "subtotal"
+            ],
+            "description": "The subtotal and shipping amounts of the order.",
+            "example": {
+              "subtotal": 4400,
+              "shipping": 800
+            }
+          },
+          "tracking": {
+            "type": "object",
+            "properties": {
+              "service": {
+                "type": "string",
+                "description": "Shipping service of the order.",
+                "example": "USPS Ground Advantage"
+              },
+              "number": {
+                "type": "string",
+                "description": "Tracking number of the order.",
+                "example": "92346903470167000000000019"
+              },
+              "url": {
+                "type": "string",
+                "description": "Tracking URL of the order.",
+                "example": "https://tools.usps.com/go/TrackConfirmAction_input?origTrackNum=92346903470167000000000019"
+              }
+            },
+            "description": "Tracking information of the order.",
+            "example": {
+              "service": "USPS Ground Advantage",
+              "number": "92346903470167000000000019",
+              "url": "https://tools.usps.com/go/TrackConfirmAction_input?origTrackNum=92346903470167000000000019"
+            }
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique object identifier.\nThe format and length of IDs may change over time.",
+                  "example": "itm_XXXXXXXXXXXXXXXXXXXXXXXXX"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Description of the item in the order."
+                },
+                "amount": {
+                  "type": "integer",
+                  "description": "Amount of the item in the order, in cents (USD).",
+                  "example": 4400
+                },
+                "quantity": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "description": "Quantity of the item in the order.",
+                  "example": 2
+                },
+                "productVariantID": {
+                  "type": "string",
+                  "description": "ID of the product variant of the item in the order.",
+                  "example": "var_XXXXXXXXXXXXXXXXXXXXXXXXX"
+                }
+              },
+              "required": [
+                "id",
+                "amount",
+                "quantity"
+              ],
+              "example": {
+                "id": "itm_XXXXXXXXXXXXXXXXXXXXXXXXX",
+                "amount": 4400,
+                "quantity": 2,
+                "productVariantID": "var_XXXXXXXXXXXXXXXXXXXXXXXXX"
+              }
+            },
+            "description": "Items in the order.",
+            "example": [
+              {
+                "id": "itm_XXXXXXXXXXXXXXXXXXXXXXXXX",
+                "amount": 4400,
+                "quantity": 2,
+                "productVariantID": "var_XXXXXXXXXXXXXXXXXXXXXXXXX"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "shipping",
+          "amount",
+          "tracking",
+          "items"
+        ],
+        "description": "An order from the Terminal shop.",
+        "example": {
+          "id": "ord_XXXXXXXXXXXXXXXXXXXXXXXXX",
+          "index": 0,
+          "shipping": {
+            "name": "John Doe",
+            "street1": "123 Main St",
+            "street2": "Apt 1",
+            "city": "Anytown",
+            "province": "CA",
+            "zip": "12345",
+            "country": "US",
+            "phone": "5555555555"
+          },
+          "amount": {
+            "subtotal": 4400,
+            "shipping": 800
+          },
+          "tracking": {
+            "service": "USPS Ground Advantage",
+            "number": "92346903470167000000000019",
+            "url": "https://tools.usps.com/go/TrackConfirmAction_input?origTrackNum=92346903470167000000000019"
+          },
+          "items": [
+            {
+              "id": "itm_XXXXXXXXXXXXXXXXXXXXXXXXX",
+              "amount": 4400,
+              "quantity": 2,
+              "productVariantID": "var_XXXXXXXXXXXXXXXXXXXXXXXXX"
+            }
+          ]
+        }
+      },
+      "description": "List of orders.",
+      "example": [
+        {
+          "id": "ord_XXXXXXXXXXXXXXXXXXXXXXXXX",
+          "index": 0,
+          "shipping": {
+            "name": "John Doe",
+            "street1": "123 Main St",
+            "street2": "Apt 1",
+            "city": "Anytown",
+            "province": "CA",
+            "zip": "12345",
+            "country": "US",
+            "phone": "5555555555"
+          },
+          "amount": {
+            "subtotal": 4400,
+            "shipping": 800
+          },
+          "tracking": {
+            "service": "USPS Ground Advantage",
+            "number": "92346903470167000000000019",
+            "url": "https://tools.usps.com/go/TrackConfirmAction_input?origTrackNum=92346903470167000000000019"
+          },
+          "items": [
+            {
+              "id": "itm_XXXXXXXXXXXXXXXXXXXXXXXXX",
+              "amount": 4400,
+              "quantity": 2,
+              "productVariantID": "var_XXXXXXXXXXXXXXXXXXXXXXXXX"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "data"
+  ]
+}*/
   const ordersQuery = createQuery(() => ({
     queryKey: ["orders"],
     queryFn: async () => {
@@ -294,89 +562,7 @@ export function App() {
             </Suspense>
           </ErrorBoundary>
         </div>
-        <div data-component="order-history">
-          <h3>Order History</h3>
-          <ErrorBoundary
-            fallback={<div data-slot="order-error">Something went wrong!</div>}
-          >
-            <Suspense
-              fallback={<div data-slot="order-loading">Loading orders...</div>}
-            >
-              {ordersQuery.data && (
-                <div data-slot="order-details">
-                  <For each={ordersQuery.data}>
-                    {(order) => (
-                      <div data-slot="order">
-                        <div data-slot="order-id">Order #{order.id}</div>
-                        <div data-slot="order-date">
-                          {new Date(order.createdAt).toLocaleDateString()}
-                        </div>
-                        <div data-slot="order-total">
-                          ${((order.amount.total ?? 0) / 100).toFixed(2)}
-                        </div>
-                      </div>
-                    )}
-                  </For>
-                </div>
-              )}
-            </Suspense>
-          </ErrorBoundary>
-        </div>
-          <h3>Shopping Cart</h3>
-          {/* An error while fetching will be caught by the ErrorBoundary */}
-          <ErrorBoundary
-            fallback={<div data-slot="cart-error">Something went wrong!</div>}
-          >
-            {/* Suspense will trigger a loading state while the data is being fetched */}
-            <Suspense
-              fallback={<div data-slot="cart-loading">Loading cart...</div>}
-            >
-              {cartQuery.data && (
-                <div data-slot="cart-details">
-                  <div data-slot="cart-items">
-                    <h4>Items ({cartQuery.data.items.length})</h4>
-                    <For each={cartQuery.data.items}>
-                      {(item) => (
-                        <div data-slot="cart-item">
-                          <div data-slot="item-name">{item.product?.name}</div>
-                          <div data-slot="item-quantity">
-                            Qty: {item.quantity}
-                          </div>
-                          <div data-slot="item-price">
-                            ${(item.subtotal / 100).toFixed(2)}
-                          </div>
-                        </div>
-                      )}
-                    </For>
-                  </div>
-                  <div data-slot="cart-summary">
-                    <div data-slot="summary-row">
-                      <span>Subtotal:</span>
-                      <span>
-                        ${(cartQuery.data.amount.subtotal / 100).toFixed(2)}
-                      </span>
-                    </div>
-                    <div data-slot="summary-row">
-                      <span>Shipping:</span>
-                      <span>
-                        $
-                        {((cartQuery.data.amount.shipping ?? 0) / 100).toFixed(
-                          2,
-                        )}
-                      </span>
-                    </div>
-                    <div data-slot="summary-row" data-total="true">
-                      <span>Total:</span>
-                      <span>
-                        ${((cartQuery.data.amount.total ?? 0) / 100).toFixed(2)}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </Suspense>
-          </ErrorBoundary>
-        </div>
+        // add a data-component="order-history" here AI!
       </div>
       <div data-component="messages">
         <For each={store.prompt}>
