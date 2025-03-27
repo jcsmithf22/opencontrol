@@ -6,17 +6,29 @@ body {
 
   --base-hue: 210;
   --color-alpha100: oklch(17% 4% var(--base-hue));
-  --color-alpha200: color-mix(in oklch, var(--color-primary) 3%, var(--color-alpha100));
-  --color-alpha300: color-mix(in oklch, var(--color-primary) 9.5%, var(--color-alpha100));
-  --color-alpha400: color-mix(in oklch, var(--color-primary) 33%, var(--color-alpha100));
+  --color-alpha200: color-mix(
+    in oklch,
+    var(--color-primary) 3%,
+    var(--color-alpha100)
+  );
+  --color-alpha300: color-mix(
+    in oklch,
+    var(--color-primary) 9.5%,
+    var(--color-alpha100)
+  );
+  --color-alpha400: color-mix(
+    in oklch,
+    var(--color-primary) 33%,
+    var(--color-alpha100)
+  );
 
   --color-bravo100: oklch(22.19% 4% var(--base-hue));
   --color-bravo200: oklch(from var(--color-bravo100) calc(l + 0.06) c h);
-  --color-bravo300: oklch(from var(--color-bravo100) calc(l + 0.10) c h);
+  --color-bravo300: oklch(from var(--color-bravo100) calc(l + 0.1) c h);
   --color-bravo400: oklch(from var(--color-bravo100) calc(l + 0.19) c h);
-  --color-bravo500: oklch(from var(--color-bravo100) calc(l + 0.40) c h);
-  --color-bravo600: oklch(from var(--color-bravo100) calc(l + 0.60) c h);
-  --color-bravo700: oklch(from var(--color-bravo100) calc(l + 0.80) c h);
+  --color-bravo500: oklch(from var(--color-bravo100) calc(l + 0.4) c h);
+  --color-bravo600: oklch(from var(--color-bravo100) calc(l + 0.6) c h);
+  --color-bravo700: oklch(from var(--color-bravo100) calc(l + 0.8) c h);
   --color-bravo800: oklch(from var(--color-bravo100) calc(l + 1) c h);
 
   background: var(--color-alpha100);
@@ -157,7 +169,8 @@ body {
     border: 2px solid transparent;
     border-top-color: var(--color-bravo400);
     border-bottom-color: var(--color-bravo300);
-    animation: thinking-spin-outer 1.5s cubic-bezier(0.6, 0.2, 0.4, 0.8) infinite;
+    animation: thinking-spin-outer 1.5s cubic-bezier(0.6, 0.2, 0.4, 0.8)
+      infinite;
   }
 
   [data-slot="spinner-inner"]::after {
@@ -171,9 +184,9 @@ body {
     border: 2px solid transparent;
     border-left-color: var(--color-bravo300);
     border-right-color: var(--color-bravo400);
-    animation: thinking-spin-inner 0.8s cubic-bezier(0.3, 0.7, 0.7, 0.3) infinite;
+    animation: thinking-spin-inner 0.8s cubic-bezier(0.3, 0.7, 0.7, 0.3)
+      infinite;
   }
-
 
   [data-slot="thinking-text"] {
     color: var(--color-bravo300);
@@ -192,6 +205,7 @@ body {
 /* Shopping cart */
 
 [data-component="shopping-cart"] {
+  // move the fixed position styling to data-slot="sidebar" AI!
   position: fixed;
   /* Position it relative to the root */
   top: 1rem;
@@ -466,3 +480,4 @@ body {
     transform: rotate(-720deg);
   }
 }
+
