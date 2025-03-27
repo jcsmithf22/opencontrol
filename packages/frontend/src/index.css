@@ -237,6 +237,7 @@ body {
     border-radius: 4px;
     background: var(--color-bravo200);
     transition: background-color 0.2s ease;
+    overflow: hidden;
 
     &:hover {
       background: var(--color-bravo300);
@@ -272,6 +273,7 @@ body {
     margin-top: 8px;
     padding-top: 8px;
     border-top: 1px dashed var(--color-bravo200);
+    overflow: hidden;
   }
 
   [data-slot="order-item"] {
@@ -280,12 +282,16 @@ body {
     align-items: center;
     padding: 4px 0;
     font-size: 13px;
+    min-width: 0; /* Allows text truncation */
   }
 
   [data-slot="item-name"] {
     flex-grow: 1;
     margin-right: 10px;
     color: var(--color-bravo700);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   [data-slot="item-quantity"] {
