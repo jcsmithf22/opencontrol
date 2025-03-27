@@ -39,7 +39,9 @@ export async function getOrders() {
   const enrichedOrders = orders.map((order) => {
     const enrichedItems = order.items.map((item) => {
       const product = products.find((product) =>
-        product.variants.some((variant) => variant.id === item.productVariantID),
+        product.variants.some(
+          (variant) => variant.id === item.productVariantID,
+        ),
       )
 
       return {

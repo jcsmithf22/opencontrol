@@ -14,7 +14,7 @@ import {
 import { z } from "zod"
 import { HTTPException } from "hono/http-exception"
 import { bearerAuth } from "hono/bearer-auth"
-import { getCart } from "./coffee.js"
+import { getCart, getOrders } from "./coffee.js"
 
 export interface OpenControlOptions {
   tools: Tool[]
