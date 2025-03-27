@@ -317,12 +317,15 @@ export function App() {
                             100
                           ).toFixed(2)}
                         </div>
-                        // style AI!
                         <div data-slot="order-items">
                           {order.items.map((item) => (
                             <div data-slot="order-item">
-                              <div data-slot="item-name">{item.product?.name}</div>
-                              <div data-slot="item-quantity">Qty: {item.quantity}</div>
+                              <div data-slot="item-name">
+                                {item.product?.name}
+                              </div>
+                              <div data-slot="item-quantity">
+                                Qty: {item.quantity}
+                              </div>
                               <div data-slot="item-price">
                                 ${(item.amount / 100).toFixed(2)}
                               </div>
