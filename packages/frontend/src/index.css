@@ -208,7 +208,7 @@ body {
   position: fixed;
   /* Position it relative to the root */
   top: 1rem;
-  right: 2rem;
+  right: 1rem;
   width: 300px;
 }
 
@@ -481,4 +481,3 @@ body {
     transform: rotate(-720deg);
   }
 }
-

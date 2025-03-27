@@ -238,60 +238,63 @@ export function App() {
   return (
     <div data-component="root" ref={root}>
       <div data-slot="sidebar">
+        // add a order-history component below this AI!
         <div data-component="shopping-cart">
-        <h3>Shopping Cart</h3>
-        {/* An error while fetching will be caught by the ErrorBoundary */}
-        <ErrorBoundary
-          fallback={<div data-slot="cart-error">Something went wrong!</div>}
-        >
-          {/* Suspense will trigger a loading state while the data is being fetched */}
-          <Suspense
-            fallback={<div data-slot="cart-loading">Loading cart...</div>}
+          <h3>Shopping Cart</h3>
+          {/* An error while fetching will be caught by the ErrorBoundary */}
+          <ErrorBoundary
+            fallback={<div data-slot="cart-error">Something went wrong!</div>}
           >
-            {cartQuery.data && (
-              <div data-slot="cart-details">
-                <div data-slot="cart-items">
-                  <h4>Items ({cartQuery.data.items.length})</h4>
-                  <For each={cartQuery.data.items}>
-                    {(item) => (
-                      <div data-slot="cart-item">
-                        <div data-slot="item-name">{item.product?.name}</div>
-                        <div data-slot="item-quantity">
-                          Qty: {item.quantity}
+            {/* Suspense will trigger a loading state while the data is being fetched */}
+            <Suspense
+              fallback={<div data-slot="cart-loading">Loading cart...</div>}
+            >
+              {cartQuery.data && (
+                <div data-slot="cart-details">
+                  <div data-slot="cart-items">
+                    <h4>Items ({cartQuery.data.items.length})</h4>
+                    <For each={cartQuery.data.items}>
+                      {(item) => (
+                        <div data-slot="cart-item">
+                          <div data-slot="item-name">{item.product?.name}</div>
+                          <div data-slot="item-quantity">
+                            Qty: {item.quantity}
+                          </div>
+                          <div data-slot="item-price">
+                            ${(item.subtotal / 100).toFixed(2)}
+                          </div>
                         </div>
-                        <div data-slot="item-price">
-                          ${(item.subtotal / 100).toFixed(2)}
-                        </div>
-                      </div>
-                    )}
-                  </For>
+                      )}
+                    </For>
+                  </div>
+                  <div data-slot="cart-summary">
+                    <div data-slot="summary-row">
+                      <span>Subtotal:</span>
+                      <span>
+                        ${(cartQuery.data.amount.subtotal / 100).toFixed(2)}
+                      </span>
+                    </div>
+                    <div data-slot="summary-row">
+                      <span>Shipping:</span>
+                      <span>
+                        $
+                        {((cartQuery.data.amount.shipping ?? 0) / 100).toFixed(
+                          2,
+                        )}
+                      </span>
+                    </div>
+                    <div data-slot="summary-row" data-total="true">
+                      <span>Total:</span>
+                      <span>
+                        ${((cartQuery.data.amount.total ?? 0) / 100).toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div data-slot="cart-summary">
-                  <div data-slot="summary-row">
-                    <span>Subtotal:</span>
-                    <span>
-                      ${(cartQuery.data.amount.subtotal / 100).toFixed(2)}
-                    </span>
-                  </div>
-                  <div data-slot="summary-row">
-                    <span>Shipping:</span>
-                    <span>
-                      $
-                      {((cartQuery.data.amount.shipping ?? 0) / 100).toFixed(2)}
-                    </span>
-                  </div>
-                  <div data-slot="summary-row" data-total="true">
-                    <span>Total:</span>
-                    <span>
-                      ${((cartQuery.data.amount.total ?? 0) / 100).toFixed(2)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            )}
-          </Suspense>
-        </ErrorBoundary>
-      </div>
+              )}
+            </Suspense>
+          </ErrorBoundary>
+        </div>
       </div>
       <div data-component="messages">
         <For each={store.prompt}>
