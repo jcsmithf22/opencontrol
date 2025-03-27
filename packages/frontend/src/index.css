@@ -212,6 +212,62 @@ body {
   width: 300px;
 }
 
+[data-component="order-history"] {
+  background: var(--color-bravo100);
+  border: 1px solid var(--color-bravo200);
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 1rem;
+  box-shadow: 0 4px 12px oklch(0 0 0 / 0.2);
+  z-index: 10;
+  max-height: 300px;
+  overflow-y: auto;
+  color: white;
+  font-size: 14px;
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--color-bravo700);
+    border-bottom: 1px solid var(--color-bravo200);
+    padding-bottom: 10px;
+    font-size: 18px;
+    font-weight: normal;
+  }
+
+  [data-slot="order"] {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--color-bravo200);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  [data-slot="order-id"] {
+    color: var(--color-bravo800);
+    font-weight: bold;
+  }
+
+  [data-slot="order-date"] {
+    color: var(--color-bravo600);
+    font-size: 12px;
+  }
+
+  [data-slot="order-total"] {
+    color: var(--color-bravo800);
+    text-align: right;
+  }
+
+  [data-slot="order-error"],
+  [data-slot="order-loading"] {
+    color: var(--color-bravo500);
+    font-style: italic;
+    text-align: center;
+    padding: 20px 0;
+  }
+}
+
 [data-component="shopping-cart"] {
   background: var(--color-bravo100);
   border: 1px solid var(--color-bravo200);

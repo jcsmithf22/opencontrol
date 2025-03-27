@@ -238,8 +238,90 @@ export function App() {
   return (
     <div data-component="root" ref={root}>
       <div data-slot="sidebar">
-        // add a order-history component below this AI!
         <div data-component="shopping-cart">
+          <h3>Shopping Cart</h3>
+          {/* An error while fetching will be caught by the ErrorBoundary */}
+          <ErrorBoundary
+            fallback={<div data-slot="cart-error">Something went wrong!</div>}
+          >
+            {/* Suspense will trigger a loading state while the data is being fetched */}
+            <Suspense
+              fallback={<div data-slot="cart-loading">Loading cart...</div>}
+            >
+              {cartQuery.data && (
+                <div data-slot="cart-details">
+                  <div data-slot="cart-items">
+                    <h4>Items ({cartQuery.data.items.length})</h4>
+                    <For each={cartQuery.data.items}>
+                      {(item) => (
+                        <div data-slot="cart-item">
+                          <div data-slot="item-name">{item.product?.name}</div>
+                          <div data-slot="item-quantity">
+                            Qty: {item.quantity}
+                          </div>
+                          <div data-slot="item-price">
+                            ${(item.subtotal / 100).toFixed(2)}
+                          </div>
+                        </div>
+                      )}
+                    </For>
+                  </div>
+                  <div data-slot="cart-summary">
+                    <div data-slot="summary-row">
+                      <span>Subtotal:</span>
+                      <span>
+                        ${(cartQuery.data.amount.subtotal / 100).toFixed(2)}
+                      </span>
+                    </div>
+                    <div data-slot="summary-row">
+                      <span>Shipping:</span>
+                      <span>
+                        $
+                        {((cartQuery.data.amount.shipping ?? 0) / 100).toFixed(
+                          2,
+                        )}
+                      </span>
+                    </div>
+                    <div data-slot="summary-row" data-total="true">
+                      <span>Total:</span>
+                      <span>
+                        ${((cartQuery.data.amount.total ?? 0) / 100).toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </Suspense>
+          </ErrorBoundary>
+        </div>
+        <div data-component="order-history">
+          <h3>Order History</h3>
+          <ErrorBoundary
+            fallback={<div data-slot="order-error">Something went wrong!</div>}
+          >
+            <Suspense
+              fallback={<div data-slot="order-loading">Loading orders...</div>}
+            >
+              {ordersQuery.data && (
+                <div data-slot="order-details">
+                  <For each={ordersQuery.data}>
+                    {(order) => (
+                      <div data-slot="order">
+                        <div data-slot="order-id">Order #{order.id}</div>
+                        <div data-slot="order-date">
+                          {new Date(order.createdAt).toLocaleDateString()}
+                        </div>
+                        <div data-slot="order-total">
+                          ${((order.amount.total ?? 0) / 100).toFixed(2)}
+                        </div>
+                      </div>
+                    )}
+                  </For>
+                </div>
+              )}
+            </Suspense>
+          </ErrorBoundary>
+        </div>
           <h3>Shopping Cart</h3>
           {/* An error while fetching will be caught by the ErrorBoundary */}
           <ErrorBoundary
