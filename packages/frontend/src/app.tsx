@@ -310,13 +310,6 @@ export function App() {
                         <div data-slot="order-info">
                           <div data-slot="order-id">Order #{order.id}</div>
                         </div>
-                        <div data-slot="order-total">
-                          $
-                          {(
-                            (order.amount.subtotal + order.amount.shipping) /
-                            100
-                          ).toFixed(2)}
-                        </div>
                         <div data-slot="order-items">
                           {order.items.map((item) => (
                             <div data-slot="order-item">
@@ -331,6 +324,25 @@ export function App() {
                               </div>
                             </div>
                           ))}
+                        </div>
+                        <div data-slot="order-summary">
+                          <div data-slot="summary-row">
+                            <span>Subtotal:</span>
+                            <span>${(order.amount.subtotal / 100).toFixed(2)}</span>
+                          </div>
+                          <div data-slot="summary-row">
+                            <span>Shipping:</span>
+                            <span>${((order.amount.shipping ?? 0) / 100).toFixed(2)}</span>
+                          </div>
+                          <div data-slot="summary-row" data-total="true">
+                            <span>Total:</span>
+                            <span>
+                              ${(
+                                (order.amount.subtotal + (order.amount.shipping ?? 0)) /
+                                100
+                              ).toFixed(2)}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     )}

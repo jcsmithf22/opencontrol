@@ -262,19 +262,40 @@ body {
     font-size: 12px;
   }
 
-  [data-slot="order-total"] {
-    color: var(--color-bravo800);
-    font-weight: bold;
-    font-size: 14px;
-    margin-top: 4px;
-  }
 
   [data-slot="order-items"] {
-    grid-column: 1 / -1;
     margin-top: 8px;
     padding-top: 8px;
     border-top: 1px dashed var(--color-bravo200);
     overflow: hidden;
+  }
+
+  [data-slot="order-summary"] {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--color-bravo200);
+  }
+
+  [data-slot="summary-row"] {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    font-size: 13px;
+  }
+
+  [data-slot="summary-row"] span:first-child {
+    color: var(--color-bravo600);
+  }
+
+  [data-slot="summary-row"] span:last-child {
+    color: var(--color-bravo800);
+  }
+
+  [data-slot="summary-row"][data-total="true"] {
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed var(--color-bravo200);
+    font-weight: bold;
   }
 
   [data-slot="order-item"] {
