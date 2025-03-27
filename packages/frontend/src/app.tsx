@@ -562,7 +562,34 @@ export function App() {
             </Suspense>
           </ErrorBoundary>
         </div>
-        // add a data-component="order-history" here AI!
+        <div data-component="order-history">
+          <h3>Order History</h3>
+          <ErrorBoundary
+            fallback={<div data-slot="order-error">Something went wrong!</div>}
+          >
+            <Suspense
+              fallback={<div data-slot="order-loading">Loading orders...</div>}
+            >
+              {ordersQuery.data && (
+                <div data-slot="order-details">
+                  <For each={ordersQuery.data}>
+                    {(order) => (
+                      <div data-slot="order">
+                        <div data-slot="order-id">Order #{order.id}</div>
+                        <div data-slot="order-date">
+                          {new Date(order.createdAt).toLocaleDateString()}
+                        </div>
+                        <div data-slot="order-total">
+                          ${((order.amount.total ?? 0) / 100).toFixed(2)}
+                        </div>
+                      </div>
+                    )}
+                  </For>
+                </div>
+              )}
+            </Suspense>
+          </ErrorBoundary>
+        </div>
       </div>
       <div data-component="messages">
         <For each={store.prompt}>
