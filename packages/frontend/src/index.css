@@ -297,7 +297,10 @@ body {
   & > * {
     position: sticky;
     top: 0;
+    box-shadow: 0 -6px 16px var(--color-alpha100);
   }
+
+  // add a bttom margin of 5rem to the last child AI!
 }
 
 [data-component="shopping-cart"] {
